@@ -1,95 +1,51 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client"
+
+import dynamic from "next/dynamic"
+
+import { AuthModalTrigger } from "@/components/auth"
+
+const LiquidEther = dynamic(() => import("@/components/LiquidEther"), {
+  ssr: false,
+})
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background text-foreground">
+      <div className="absolute right-6 top-6 z-20">
+        <AuthModalTrigger />
+      </div>
+      <div className="absolute inset-0">
+        <LiquidEther
+          className="h-full w-full"
+          colors={["#3155FF", "#D6E4FF", "#FFC94D", "#2238A5"]}
+          autoDemo
+          autoSpeed={0.45}
+          autoIntensity={2}
+          resolution={0.65}
         />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+        <div
+          className="absolute inset-0 bg-gradient-to-br from-background via-background/40 to-transparent"
+          aria-hidden
+        />
+      </div>
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+      <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-col items-center gap-6 px-6 py-24 text-center">
+        <span className="inline-flex items-center rounded-full border border-primary/30 bg-primary/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-primary">
+          Letterbook
+        </span>
+
+        <h1 className="text-balance text-4xl font-bold tracking-tight sm:text-6xl">
+          Le réseau social des lecteurs passionnés.
+        </h1>
+
+        <p className="max-w-2xl text-balance text-base text-muted-foreground sm:text-lg">
+          Tenez votre journal de lecture, partagez des avis, créez des listes et suivez vos amis
+          pour découvrir leurs dernières lectures.
+          <span className="block sm:inline">
+            Lettrebook rassemble votre communauté de lecteurs en un seul lieu.
+          </span>
+        </p>
+      </div>
+    </main>
+  )
 }
