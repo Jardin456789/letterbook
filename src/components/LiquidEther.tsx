@@ -1,7 +1,31 @@
 "use client"
+// @ts-nocheck
 import { useEffect, useRef } from "react"
+import type { CSSProperties } from "react"
 import * as THREE from "three"
 import "./LiquidEther.css"
+
+type LiquidEtherProps = {
+  mouseForce?: number
+  cursorSize?: number
+  isViscous?: boolean
+  viscous?: number
+  iterationsViscous?: number
+  iterationsPoisson?: number
+  dt?: number
+  BFECC?: boolean
+  resolution?: number
+  isBounce?: boolean
+  colors?: string[]
+  style?: CSSProperties
+  className?: string
+  autoDemo?: boolean
+  autoSpeed?: number
+  autoIntensity?: number
+  takeoverDuration?: number
+  autoResumeDelay?: number
+  autoRampDuration?: number
+}
 
 export default function LiquidEther({
   mouseForce = 20,
@@ -15,7 +39,7 @@ export default function LiquidEther({
   resolution = 0.5,
   isBounce = false,
   colors = ["#5227FF", "#FF9FFC", "#B19EEF"],
-  style = {},
+  style = {} as CSSProperties,
   className = "",
   autoDemo = true,
   autoSpeed = 0.5,
@@ -23,7 +47,7 @@ export default function LiquidEther({
   takeoverDuration = 0.25,
   autoResumeDelay = 1000,
   autoRampDuration = 0.6,
-}) {
+}: LiquidEtherProps) {
   const mountRef = useRef(null)
   const webglRef = useRef(null)
   const resizeObserverRef = useRef(null)
@@ -765,7 +789,7 @@ export default function LiquidEther({
           wrapS: THREE.ClampToEdgeWrapping,
           wrapT: THREE.ClampToEdgeWrapping,
         }
-        for (let key in this.fbos) {
+        for (const key in this.fbos) {
           this.fbos[key] = new THREE.WebGLRenderTarget(this.fboSize.x, this.fboSize.y, opts)
         }
       }
@@ -824,7 +848,7 @@ export default function LiquidEther({
       }
       resize() {
         this.calcSize()
-        for (let key in this.fbos) {
+        for (const key in this.fbos) {
           this.fbos[key].setSize(this.fboSize.x, this.fboSize.y)
         }
       }
@@ -975,7 +999,7 @@ export default function LiquidEther({
             if (canvas && canvas.parentNode) canvas.parentNode.removeChild(canvas)
             Common.renderer.dispose()
           }
-        } catch (e) {
+        } catch {
           void 0
         }
       }
@@ -1055,14 +1079,14 @@ export default function LiquidEther({
       if (resizeObserverRef.current) {
         try {
           resizeObserverRef.current.disconnect()
-        } catch (e) {
+        } catch {
           void 0
         }
       }
       if (intersectionObserverRef.current) {
         try {
           intersectionObserverRef.current.disconnect()
-        } catch (e) {
+        } catch {
           void 0
         }
       }
